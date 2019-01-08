@@ -1,0 +1,176 @@
+
+
+.mat-cell{
+    width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .mat-form-field {
+    display: inline-block;
+    position: relative;
+    text-align: left;
+  
+  }
+  .pull-right{
+    float: right;
+  }
+  .pull-left{
+    float: left;
+  }
+  mat-form-field{
+    padding-left: 2px;
+    padding-right: 27px;
+  }
+  .container{
+    position:relative;
+  }
+  
+  .button_add{
+    font-size: 30px;
+  }
+  
+  .dialog {
+    z-index: 1000;
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    min-height: 313px;
+    width: 100%;
+    max-width: 720px;
+    background-color: #fff;
+    padding: 12px;
+    cursor: all-scroll;
+    display: inline-block;
+    box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14), 0 5px 24px 4px rgba(0, 0, 0, 0.12);
+  }
+  .dialog_none {
+    z-index: 1000;
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 20px;
+    cursor: all-scroll;
+    margin-right: auto;
+    margin-left: auto;
+    min-height: 313px;
+    width: 100%;
+    max-width: 720px;
+    background-color: #fff;
+    padding: 12px;
+    display: none;
+    box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14), 0 5px 24px 4px rgba(0, 0, 0, 0.12);
+  
+  }
+  @media (min-width: 768px) {
+    .dialog {
+      top: 40px;
+      
+    }
+  }
+
+  .find{
+    position: absolute;
+    top: 268px;
+  }
+  
+  .dialog__close-btn {
+    border: 0;
+    background: none;
+    color: #2d2d2d;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 1.2em;
+  }
+  .align-center{
+    text-align:center;
+  }
+  .search_fields,.sort_fields{
+    position: absolute;
+    top: 80px;
+    left: 24px;
+    width: 96%;
+    height: 58%;
+    overflow: auto;
+    border-bottom:1px solid grey;
+    
+  }
+  .column {
+    float: left;
+    width: 30.33%;
+    padding: 10px;
+    
+  }
+  .column_sort{
+    float: left;
+    width: 41.33%;
+    padding: 10px;
+  }
+  .column_btn{
+    float: left;
+    width: 15.33%;
+    padding: 5px;
+  
+  }
+  .maticon{
+    position:relative;
+    bottom:22px;
+  }
+  .row:after {
+    position: absolute;
+    content: "";
+    display: table;
+    clear: both;
+    width: 100%;
+  }
+  .column_delete{
+    min-width: 0px; 
+  }
+  .padding_20{
+    padding: 10px;
+  }
+  .select{
+    width: 100%;
+  }
+  .mat-button-try{
+    border: none;
+    color: white;
+    padding: 0px 17px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 12px 2px;
+    cursor: pointer;
+  }
+  
+  .example-container {
+    height: 400px;
+    overflow: auto;
+  }
+  
+  .mat-table-sticky {
+    background: lightgray;
+    opacity: 1;
+  }
+  .handle{
+    touch-action: none;
+  }
+  .example-sticky-toggle-group {
+    margin: 8px;
+  }
+  
+  .mat-column-filler {
+    padding: 0 8px;
+    font-size: 10px;
+    text-align: center;
+  }
+  
+  .mat-header-cell, .mat-footer-cell, .mat-cell {
+    min-width: 80px;
+    box-sizing: border-box;
+  }

@@ -1,0 +1,18 @@
+
+  :host /deep/.sindu_dragger table {
+    background-color: white !important;
+}
+
+table, td, th {
+    border: 1px solid white;
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td {
+    height: 50px;
+    vertical-align: bottom;
+  }
