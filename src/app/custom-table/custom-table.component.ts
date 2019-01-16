@@ -70,8 +70,14 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
  this.selectedOptions = new FormControl();
  
  }
- getIndex(value){
-   return "A";
+ ColumnBase = 26;
+ 
+ getIndex(index: any){
+  var mod = index % 26,
+  pow = index / 26 | 0,
+  out = mod ? String.fromCharCode(64 + mod) : (--pow, 'Z');
+  return pow ? this.getIndex(pow) + out : out;
+
  }
  
  ngAfterViewInit(){
