@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { SharedModule } from '../sharedModules/commonModules/shared.module';
 import { LoginComponent } from './login/login.component';
 import { StudentComponent } from './student/student.component';
-import { StartupServiceService } from './startup-service.service';
 import { VehicleResolver } from './VehicleResolver';
 
 @NgModule({

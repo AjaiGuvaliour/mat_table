@@ -59,7 +59,8 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
  for(let object in objects){
  this.columns.push({name:object,label:"Search by "+object});
  }
- this.displayedColumns= this.columns.map(element=> element.name)
+ this.displayedColumns= ['axis'].concat(this.columns.map(element=> element.name));
+ console.log(this.displayedColumns)
  this.fiterdata=this.matData;
  this.tabledata_cpy = this.matData;
  this.tabledata_cpy2 = this.matData;
@@ -69,13 +70,48 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
  this.selectedOptions = new FormControl();
  
  }
+ getIndex(value){
+   return "A";
+ }
  
  ngAfterViewInit(){
   $("#sort_fieldId , #search_fieldId").sortable({
     connectWith: "div",
     delay: 150, 
     revert: 0,
-});
+   });
+
+  //  $(function() {  
+  //   function groupTable($rows, startIndex, total){
+  //     console.log($rows)
+  //   if (total === 0){
+  //   return;
+  //   }
+  //   var i , currentIndex = startIndex, count=1, lst=[];
+  //   var tds = $rows.find('td:eq('+ currentIndex +')');
+  //   var ctrl = $(tds[0]);
+  //   lst.push($rows[0]);
+  //   for (i=1;i<=tds.length;i++){
+  //   if (ctrl.text() ==  $(tds[i]).text()){
+  //   count++;
+  //   $(tds[i]).addClass('deleted');
+  //   lst.push($rows[i]);
+  //   }
+  //   else{
+  //   if (count>1){
+  //   ctrl.attr('rowspan',count);
+  //   groupTable($(lst),startIndex+1,total-1)
+  //   }
+  //   count=1;
+  //   lst = [];
+  //   ctrl=$(tds[i]);
+  //   lst.push($rows[i]);
+  //   }
+  //   }
+  //   }
+  //   groupTable($('#datatable tr:has(td)'),3,1);
+  //   $('#datatable .deleted').remove();
+  //   });
  }
  
  onScrollDown() {
@@ -457,11 +493,15 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
      });
      return this;
   };
- obja["keySort"](sorto);
+ obja.keySort(sorto);
  this.tableDatas=obja;
+ console.log(this.tableDatas)
 }
 else{
   this.tableDatas=this.tabledata_cpy2;
 }
+
+
+
 }
 }

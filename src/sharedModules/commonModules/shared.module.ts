@@ -6,7 +6,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgxInfiniteScrollerModule } from 'ngx-infinite-scroller';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {DragDropModule} from '@angular/cdk/drag-drop';
-import { Ng2SortableModule } from 'ng2-ui-sortable';
 
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MatToolbarModule,
@@ -35,7 +34,7 @@ import { CustomTableComponent } from 'src/app/custom-table/custom-table.componen
     DragDropModule,
     MatInputModule,
     BrowserAnimationsModule,
-    NgxInfiniteScrollerModule,Ng2SortableModule,
+    NgxInfiniteScrollerModule,
     InfiniteScrollModule,
     MatButtonModule,
     MatToolbarModule,
@@ -51,7 +50,7 @@ import { CustomTableComponent } from 'src/app/custom-table/custom-table.componen
   exports:[
     CustomTableComponent,
     BrowserAnimationsModule,
-    HttpClientModule,Ng2SortableModule,
+    HttpClientModule,
     DragDropModule,
     FormsModule,
     ReactiveFormsModule,

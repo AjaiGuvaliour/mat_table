@@ -39,22 +39,22 @@ export class AppComponent implements OnInit {
 
   getData(value: any){
     this.martData=[
-      {USER:"bob",	SCORE:2000,	TIME:32,	AGE:16,	COUNTRY:"US"},
-      {USER:"jane",	SCORE:4000,	TIME:35,	AGE:16,	COUNTRY:"DE"},
-      {USER:"tim",	SCORE:1000,	TIME:30,	AGE:17,	COUNTRY:"UK"},
-      {USER:"mary",	SCORE:1500,	TIME:31,	AGE:19,	COUNTRY:"PL"},
-      {USER:"joe",	SCORE:2500,	TIME:33,	AGE:18,	COUNTRY:"US"},
-      {USER:"sally",	SCORE:2000,	TIME:30,	AGE:16,	COUNTRY:"CA"},
-      {USER:"yuri",	SCORE:3000,	TIME:34,	AGE:19,	COUNTRY:"RU"},
-      {USER:"yuri",	SCORE:1000,	TIME:3,	AGE:19,	COUNTRY:"RU"},
-      {USER:"yuri",	SCORE:1000,	TIME:3,	AGE:18,	COUNTRY:"Ar"},
-      {USER:"yuri",	SCORE:1000,	TIME:3,	AGE:18,	COUNTRY:"RU"},
-      {USER:"yuri",	SCORE:1000,	TIME:3,	AGE:19,	COUNTRY:"RU"},
-      {USER:"yuri",	SCORE:1000,	TIME:34,	AGE:19,	COUNTRY:"RU"},
-      {USER:"yuri",	SCORE:6000,	TIME:34,	AGE:19,	COUNTRY:"RU"},
-      {USER:"anita",	SCORE:2500,	TIME:32,	AGE:17,	COUNTRY:"LV"},
-      {USER:"mark",	SCORE:2000,	TIME:30,	AGE:18,	COUNTRY:"DE"},
-      {USER:"amy",	SCORE:1500,	TIME:29,	AGE:19,	COUNTRY:"UK"}
+      {USER: "yuri", SCORE: 6000, TIME: 34, AGE: 19, COUNTRY: "RU"},
+       {USER: "yuri", SCORE: 3000, TIME: 34, AGE: 19, COUNTRY: "RU"},
+       {USER: "yuri", SCORE: 1000, TIME: 34, AGE: 19, COUNTRY: "RU"},
+       {USER: "yuri", SCORE: 1000, TIME: 3, AGE: 19, COUNTRY: "RU"},
+      {USER: "yuri", SCORE: 1000, TIME: 3, AGE: 19, COUNTRY: "RU"},
+      {USER: "yuri", SCORE: 1000, TIME: 3, AGE: 18, COUNTRY: "RU"},
+      {USER: "yuri", SCORE: 1000, TIME: 3, AGE: 18, COUNTRY: "Ar"},
+      {USER: "tim", SCORE: 1000, TIME: 30, AGE: 17, COUNTRY: "UK"},
+      {USER: "sally", SCORE: 2000, TIME: 30, AGE: 16, COUNTRY: "CA"},
+      {USER: "mary", SCORE: 1500, TIME: 31, AGE: 19, COUNTRY: "PL"},
+      {USER: "mark", SCORE: 2000, TIME: 30, AGE: 18, COUNTRY: "DE"},
+      {USER: "joe", SCORE: 2500, TIME: 33, AGE: 18, COUNTRY: "US"},
+      {USER: "jane", SCORE: 4000, TIME: 35, AGE: 16, COUNTRY: "DE"},
+      {USER: "bob", SCORE: 2000, TIME: 32, AGE: 16, COUNTRY: "US"},
+      {USER: "anita", SCORE: 2500, TIME: 32, AGE: 17, COUNTRY: "LV"},
+      {USER: "amy", SCORE: 1500, TIME: 29, AGE: 19, COUNTRY: "UK"}
     ];
     this.dataTrue= true;
   }
