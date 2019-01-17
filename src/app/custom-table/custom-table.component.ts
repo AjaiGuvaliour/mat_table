@@ -127,6 +127,7 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
   var formula = event.target.value;
 
   var formulaText="";
+  var formulaResult="";
   var valueArray=[];
   var formulaArray=[];
   if(formula.length){
@@ -141,9 +142,14 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
       if(document.getElementById(formulaArray[j])){
         valueArray[j]=document.getElementById(formulaArray[j]).innerText;
       }
-
+      else{
+        valueArray[j]=formulaArray[j];
+      }
      }
-      console.log("hau",valueArray);
+    //  for(var i=0; i< formula.length;i++){
+    //   formulaResult=formulaResult+ formula[i].replace(/[^A-Za-z0-9]/g,valueArray[i])
+    //  }
+      console.log("hau",formulaResult);
  }
  onScrollDown() {
  let len = this.tableDatas.length;
