@@ -134,22 +134,30 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
        for(var i=0; i< formula.length;i++){
         formulaText=formulaText+ formula[i].replace(/[^A-Za-z0-9]/g," ")
        }
+
+       formulaArray  = formulaText.split(" ");
+ 
+       for(var j=0;j< formulaArray.length;j++){
+        if(document.getElementById(formulaArray[j])){
+          if(document.getElementById(formulaArray[j]).innerText){
+          valueArray[j]=document.getElementById(formulaArray[j]).innerText;
+          }
+        
+        }
+        else{
+          valueArray[j]=formulaArray[j];
+        }
+       }
+       console.log(formulaArray.length)
+       for(var k=0;k<formulaArray.length;k++){
+          formulaResult = formula.replace("C1",30)
+        
+       }
+       console.log("formulaResult",formulaResult)
       
      }
-     formulaArray  = formulaText.split(" ");
- 
-     for(var j=0;j< formulaArray.length;j++){
-      if(document.getElementById(formulaArray[j])){
-        valueArray[j]=document.getElementById(formulaArray[j]).innerText;
-      }
-      else{
-        valueArray[j]=formulaArray[j];
-      }
-     }
-    //  for(var i=0; i< formula.length;i++){
-    //   formulaResult=formulaResult+ formula[i].replace(/[^A-Za-z0-9]/g,valueArray[i])
-    //  }
-      console.log("hau",formulaResult);
+    
+  
  }
  onScrollDown() {
  let len = this.tableDatas.length;
