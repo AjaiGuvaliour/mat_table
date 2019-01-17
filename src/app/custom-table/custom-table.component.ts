@@ -139,11 +139,11 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
  
      for(var j=0;j< formulaArray.length;j++){
       if(document.getElementById(formulaArray[j])){
-        valueArray.push(document.getElementById(formulaArray[j]).innerText);
+        valueArray[j]=document.getElementById(formulaArray[j]).innerText;
       }
+
      }
-      console.log("hau",valueArray,formulaArray,formulaText,formula);
-  
+      console.log("hau",valueArray);
  }
  onScrollDown() {
  let len = this.tableDatas.length;
