@@ -59,7 +59,7 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
  for(let object in objects){
  this.columns.push({name:object,label:"Search by "+object});
  }
- this.displayedColumns= ['axis'].concat(this.columns.map(element=> element.name));
+ this.displayedColumns= ['axis'].concat(this.columns.map(element=> element.name)).concat(['formula']);
  console.log(this.displayedColumns)
  this.fiterdata=this.matData;
  this.tabledata_cpy = this.matData;
@@ -78,6 +78,9 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
   out = mod ? String.fromCharCode(64 + mod) : (--pow, 'Z');
   return pow ? this.getIndex(pow) + out : out;
 
+ }
+ aler1t(value){
+   console.log(value);
  }
  
  ngAfterViewInit(){
@@ -119,7 +122,29 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
   //   $('#datatable .deleted').remove();
   //   });
  }
+
+ formulaGenerator(event){
+  var formula = event.target.value;
+
+  var formulaText="";
+  var valueArray=[];
+  var formulaArray=[];
+  if(formula.length){
+       for(var i=0; i< formula.length;i++){
+        formulaText=formulaText+ formula[i].replace(/[^A-Za-z0-9]/g," ")
+       }
+      
+     }
+     formulaArray  = formulaText.split(" ");
  
+     for(var j=0;j< formulaArray.length;j++){
+      if(document.getElementById(formulaArray[j])){
+        valueArray.push(document.getElementById(formulaArray[j]).innerText);
+      }
+     }
+      console.log("hau",valueArray,formulaArray,formulaText,formula);
+  
+ }
  onScrollDown() {
  let len = this.tableDatas.length;
  for(let i = len; i < len+5; i++){

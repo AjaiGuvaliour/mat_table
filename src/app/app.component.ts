@@ -28,16 +28,16 @@ export class AppComponent implements OnInit {
   dataTrue: boolean=false;
   constructor(public serviceService: AppService,public renderer: Renderer2) {
     this.serviceService.getData('/ref-data/symbols').subscribe(data => {
-    this.getData(data)
     }, error => {
       console.log(error);
     });
+    this.getData()
 
   }
   ngOnInit() {
   }
 
-  getData(value: any){
+  getData(){
     this.martData=[
       {USER: "yuri", SCORE: 6000, TIME: 34, AGE: 19, COUNTRY: "RU"},
        {USER: "yuri", SCORE: 3000, TIME: 34, AGE: 19, COUNTRY: "RU"},
