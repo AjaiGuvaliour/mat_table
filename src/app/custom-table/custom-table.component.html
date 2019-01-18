@@ -54,24 +54,24 @@
     <button mat-button (click)="sortVisible = !sortVisible" >sort</button>       
    <div class="search-results" infiniteScroll [infiniteScrollUpDistance]="scrollUpDistance" [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle" (scrolled)="onScrollDown()"> 
    <div *ngIf="dataLoaded">
-    <div class="mat-elevation-z8" >
+    <div class="container mat-elevation-z8" >
 
-    <table mat-table [dataSource]="tableDatas" matSort id="datatable" border="1" cellpadding="3" cellspacing="0">  <!--border="1" cellpadding="3" cellspacing="0" --> 
+    <table mat-table [dataSource]="tableDatas" matSort id="datatable" >  <!--border="1" cellpadding="3" cellspacing="0" --> 
     <ng-container  matColumnDef="axis" sticky=true>
-            <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let element; let i = index;" [attr.class]="'staticrow'+i"><span>{{i+1}}</span> 
+            <th mat-header-cell *matHeaderCellDef>R</th>
+        <td mat-cell *matCellDef="let element; let i = index;" [attr.id]="'staticrow'+i"><span>{{i+1}}</span> 
         </td> 
     </ng-container>
     <ng-container *ngFor="let column of columns; let colIndex = index "  matColumnDef="{{column.name}}" [sticky]="isSticky(column.name)">
     <th mat-header-cell *matHeaderCellDef><p class="column_data" ><b [innerHTML]="getIndex(colIndex+1)" ></b></p><p>{{column.name}}</p></th>
-    <td mat-cell *matCellDef="let element; let i = index;"  ><span [attr.id]="getIndex(colIndex+1)+''+(i+1)">{{element[column.name]}}</span> 
+    <td mat-cell *matCellDef="let element; let indexData = index;" [ngClass]="typeChecking(element[column.name]) ? 'numberClass' : ''" ><span [attr.class]="getIndex(colIndex+1)+''+(indexData+1)">{{element[column.name]}}</span> 
     </td> 
     </ng-container>
     <ng-container  matColumnDef="formula" sticky=true>
-            <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let element; let i = index;" [attr.class]="'staticrow'+i"><span>
+            <th mat-header-cell *matHeaderCellDef>Formula</th>
+        <td mat-cell *matCellDef="let element; let i = index;" [attr.id]="'staticrow'+i"><span>
             <mat-form-field>
-                <input matInput type="text"  id="formulaTextArea" (input)="formulaGenerator($event)"><input  matInput type="text" >
+                <input matInput type="text" placeholder="Evaluation Process" [id]="'formulaGeneratingArea'+i"  (mouseout)="formulaGenerator($event,i)"><input readonly [id]="'formulaTextArea'+i" matInput type="text" >
             </mat-form-field>
         </span> 
         </td> 
@@ -80,6 +80,8 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;let rowIndex = index " [attr.id]=rowIndex+1></tr>
     </table>
     </div>
+   </div>
+   </div>
    </div>
    
 

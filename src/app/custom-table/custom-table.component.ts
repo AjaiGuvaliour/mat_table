@@ -123,11 +123,10 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
   //   });
  }
 
- formulaGenerator(event){
+ formulaGenerator(event,index){
   var formula = event.target.value;
-
+  console.log(formula)
   var formulaText="";
-  var formulaResult="";
   var valueArray=[];
   var formulaArray=[];
   if(formula.length){
@@ -138,9 +137,9 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
        formulaArray  = formulaText.split(" ");
  
        for(var j=0;j< formulaArray.length;j++){
-        if(document.getElementById(formulaArray[j])){
-          if(document.getElementById(formulaArray[j]).innerText){
-          valueArray[j]=document.getElementById(formulaArray[j]).innerText;
+        if(document.getElementsByClassName(formulaArray[j].toUpperCase())[0]){
+          if(document.getElementsByClassName(formulaArray[j].toUpperCase())[0].innerHTML){
+          valueArray[j]=document.getElementsByClassName(formulaArray[j].toUpperCase())[0].innerHTML;
           }
         
         }
@@ -148,16 +147,27 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
           valueArray[j]=formulaArray[j];
         }
        }
-       console.log(formulaArray.length)
        for(var k=0;k<formulaArray.length;k++){
-          formulaResult = formula.replace("C1",30)
+        formula = formula.replace(formulaArray[k],valueArray[k])
         
        }
-       console.log("formulaResult",formulaResult)
-      
+       var formulatedValue=eval(formula);
+       var formulaTextArea= document.getElementById(`${"formulaTextArea"+index}`);      
+        formulaTextArea["value"] =formulatedValue;    
      }
-    
+       if(formula.length == 0){
+        document.getElementById(`${"formulaTextArea"+index}`)["value"]="";
+       }
   
+ }
+
+ typeChecking(textValue: any){
+   if(typeof(textValue)=="number"){
+   return true;
+  }
+   else{
+     return false;
+   }
  }
  onScrollDown() {
  let len = this.tableDatas.length;

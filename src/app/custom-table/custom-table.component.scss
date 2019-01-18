@@ -1,7 +1,22 @@
+.mat-table{width:100%}
+.numberClass{
+  text-align:right;
+}
+.otherClass{
+  text-align:left;
+ // padding-left:0px !important;
 
+}
 
+table tr{
+   td{
+     border : 1px solid lightgrey ;
+   }
+   th{
+    border : 1px solid lightgrey ;
+  }
+ }
 .mat-cell{
-    width: 250px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
