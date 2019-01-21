@@ -27,14 +27,14 @@ export class AppComponent implements OnInit {
   martData=[];
   dataTrue: boolean=false;
   constructor(public serviceService: AppService,public renderer: Renderer2) {
-    this.serviceService.getData('/ref-data/symbols').subscribe(data => {
-    }, error => {
-      console.log(error);
-    });
-    this.getData()
-
+  
+  this.getData();
   }
   ngOnInit() {
+  }
+
+  hai(data){
+   console.log(data)
   }
 
   getData(){

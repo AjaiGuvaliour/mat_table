@@ -7,6 +7,13 @@
  // padding-left:0px !important;
 
 }
+.search-results {
+  height: 30rem;
+  width: 50rem;
+  position:relative;
+  left:20%;
+  overflow: auto;
+}
 
 table tr{
    td{
@@ -40,8 +47,22 @@ table tr{
   .container{
     position:relative;
   }
+  .row-table{
+    width:0px !important;
+   .mat-cell{
+     height:66px;
+   }
+   .mat-header-row {
+     th{
+      top:0;
+      position:sticky;
+     }
+    
+   }
+
+  }
   .mat-table-sticky{
-    background: white !important;
+    background: #f7f4f4  !important;
   }
   .column_data{
     padding-bottom: 8px;
@@ -93,6 +114,18 @@ table tr{
       
     }
   }
+  .jsdragtable-contents {
+    background: #fff;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    box-shadow: 2px 2px 5px #aaa;
+    padding: 0;
+}
+
+.jsdragtable-contents table {
+    margin-bottom: 0;
+}
 
   .find{
     position: absolute;

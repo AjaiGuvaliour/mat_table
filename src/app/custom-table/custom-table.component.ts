@@ -22,24 +22,15 @@ import * as $ from 'jquery';
 export class CustomTableComponent implements OnInit ,AfterViewInit{
  getValue: any = [];
  tabledata_cpy: any = [];
- tabledata_cpy2: any=[];
  searchIndex=0;
  sortIndex=0;
+ sortListing_data: any ={};
  searchVisible: any=false;
  sortVisible: any =false;
  dataLoaded = false;
- searchObject : any = {};
- sum = 100;
- searchable: any= false;
- throttle = 300;
- scrollDistance = 1;
- el: any;
- scrollUpDistance = 2;
- direction = '';
  editable =false;
  fiterdata: any=[];
- editablecolumns: Array<any>=[];
-
+ groupingOptions: any = [];
  @Input () matData=[] ;
  @ViewChild('tableData') tableData:ElementRef;
  @ViewChild('dynamicSearchOption') dynamicSearchOption:ElementRef;
@@ -47,10 +38,7 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
 
  tableDatas = [];
  columns: Array<any>=[];
- args: any={};
  displayedColumns: string[];
- len: any;
- element:any;
  selectedOptions: any=[];
  constructor(public renderer: Renderer2) {
  }
@@ -59,73 +47,39 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
  for(let object in objects){
  this.columns.push({name:object,label:"Search by "+object});
  }
- this.displayedColumns= ['axis'].concat(this.columns.map(element=> element.name)).concat(['formula']);
- console.log(this.displayedColumns)
+ 
+ this.displayedColumns= ['axis'].concat((this.columns.map(element=> element.name))).concat(['formula']);
  this.fiterdata=this.matData;
  this.tabledata_cpy = this.matData;
- this.tabledata_cpy2 = this.matData;
  this.tableDatas = this.matData.slice(0,20);
  this.dataLoaded = true;
- this.editablecolumns= this.columns.slice(0);
  this.selectedOptions = new FormControl();
- 
+ this.groupingOptions = new FormControl();
  }
- ColumnBase = 26;
  
  getIndex(index: any){
   var mod = index % 26,
   pow = index / 26 | 0,
   out = mod ? String.fromCharCode(64 + mod) : (--pow, 'Z');
   return pow ? this.getIndex(pow) + out : out;
+ }
 
- }
- aler1t(value){
-   console.log(value);
- }
  
  ngAfterViewInit(){
+   this.sortableTable();
+   this.groupBy([1,2,3]);
+ }
+ sortableTable(){
   $("#sort_fieldId , #search_fieldId").sortable({
     connectWith: "div",
     delay: 150, 
     revert: 0,
    });
-
-  //  $(function() {  
-  //   function groupTable($rows, startIndex, total){
-  //     console.log($rows)
-  //   if (total === 0){
-  //   return;
-  //   }
-  //   var i , currentIndex = startIndex, count=1, lst=[];
-  //   var tds = $rows.find('td:eq('+ currentIndex +')');
-  //   var ctrl = $(tds[0]);
-  //   lst.push($rows[0]);
-  //   for (i=1;i<=tds.length;i++){
-  //   if (ctrl.text() ==  $(tds[i]).text()){
-  //   count++;
-  //   $(tds[i]).addClass('deleted');
-  //   lst.push($rows[i]);
-  //   }
-  //   else{
-  //   if (count>1){
-  //   ctrl.attr('rowspan',count);
-  //   groupTable($(lst),startIndex+1,total-1)
-  //   }
-  //   count=1;
-  //   lst = [];
-  //   ctrl=$(tds[i]);
-  //   lst.push($rows[i]);
-  //   }
-  //   }
-  //   }
-  //   groupTable($('#datatable tr:has(td)'),3,1);
-  //   $('#datatable .deleted').remove();
-  //   });
  }
+ 
 
  formulaGenerator(event,index){
   var formula = event.target.value;
-  console.log(formula)
   var formulaText="";
   var valueArray=[];
   var formulaArray=[];
@@ -169,6 +123,45 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
      return false;
    }
  }
+
+ groupBy(arrayValue: any){
+   console.log(arrayValue)
+  $(function() {  
+    function groupTable($rows, startIndex, total){
+      console.log($rows)
+    if (total === 0){
+    return;
+    }
+    var i , currentIndex = startIndex, count=1, lst=[];
+    var tds = $rows.find('td:eq('+ currentIndex +')');
+    var ctrl = $(tds[0]);
+    lst.push($rows[0]);
+    for (i=1;i<=tds.length;i++){
+    if (ctrl.text() ==  $(tds[i]).text()){
+    count++;
+    $(tds[i]).addClass('deleted');
+    lst.push($rows[i]);
+    }
+    else{
+    if (count>1){
+    ctrl.attr('rowspan',count);
+    groupTable($(lst),startIndex+1,total-1)
+    }
+    count=1;
+    lst = [];
+    ctrl=$(tds[i]);
+    lst.push($rows[i]);
+    }
+    }
+    }
+   // groupTable($('#datatable tr:has(td)'),arrayValue,1)
+
+      groupTable($('#datatable tr:has(td)'),1,3);
+    
+    $('#datatable .deleted').hide();
+    });
+ }
+
  onScrollDown() {
  let len = this.tableDatas.length;
  for(let i = len; i < len+5; i++){
@@ -180,12 +173,14 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
  }
 
  isSticky(id: string) {
- var data = [];
- if(this.selectedOptions.value){
- this.selectedOptions.value.forEach(element => { data.push(element.name); });}
- return ( data || []).indexOf(id) !== -1;
+   var data = [];
+   if(this.selectedOptions.value){
+   this.selectedOptions.value.forEach(element => { data.push(element.name); });}
+   return ( data || []).indexOf(id) !== -1;
  }
-
+ hai(){
+    this.groupBy(this.groupingOptions.value);
+ }
  dynamicSearch(){
  let data = this.tabledata_cpy[0];
  let overall_div = this.renderer.createElement("div");
@@ -445,6 +440,7 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
  if(selection != ""){ element[selection] = searched; element["types"] = type; searching_list.push(element);}
  }
  this.filterData(searching_list);
+ 
  }
  else if(find == "findSort"){
  let sort_List={};
@@ -458,8 +454,8 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
  sort_List[key.value]=value.value;
  }
  }
-
  this.orderBy(sort_List);
+ this.sortListing_data= sort_List;
  }
  }
 
@@ -467,6 +463,9 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
   let selectedrow=document.getElementById(`${delete_row}`).parentElement;
   this.renderer.removeChild(nativeElement,selectedrow);
   }
+
+
+
 
 
  refresh(event: any){
@@ -480,9 +479,8 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
  }
  }
  this.searchIndex=0;
- console.log(this.tableDatas)
- this.tableDatas=this.tabledata_cpy2.slice(0);
-
+ this.orderBy(this.sortListing_data)
+//  this.tableDatas=this.tabledata_cpy2.slice(0);
  }
  else if(refresh == "resetSort"){
  for(var i=0;i<this.sortIndex;i++){
@@ -492,13 +490,14 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
  }
  }
  this.sortIndex=0;
- this.tableDatas=this.tabledata_cpy2;
+ this.orderBy({});
+ this.sortListing_data={};
  }
  }
 
+
  
  orderBy(sortData: any){
-   if(sortData.length !=0){
    var obja = this.tabledata_cpy.slice(0) ;
    var sorto = sortData;
    Array.prototype["keySort"] = function(keys) {
@@ -550,13 +549,5 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
   };
  obja.keySort(sorto);
  this.tableDatas=obja;
- console.log(this.tableDatas)
-}
-else{
-  this.tableDatas=this.tabledata_cpy2;
-}
-
-
-
 }
 }

@@ -7,8 +7,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AppService {
-  //https://api.iextrading.com/1.0/ref-data/symbols
-  baseURL="https://api.iextrading.com/1.0";
+  baseURL="";
 
   constructor(public httpClient : HttpClient) { }
   option: any= new HttpHeaders({'Content-type':'application/json'})

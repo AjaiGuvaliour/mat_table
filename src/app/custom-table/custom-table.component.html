@@ -47,16 +47,23 @@
     <mat-option *ngFor="let column of columns" [value]="column">{{ column.name}}</mat-option>
     </mat-select>
     </mat-form-field>
-   
+
+    <mat-form-field>
+            <mat-select multiple placeholder="select column for Grouping" [formControl]="groupingOptions">
+            <mat-option *ngFor="let column of columns;let index = index" [value]="index+1">{{ column.name}}</mat-option>
+            </mat-select>
+            </mat-form-field>
+            <button (click)="hai()"></button>
     </div>
    
     <button mat-button (click)="searchVisible = !searchVisible" >search</button>
     <button mat-button (click)="sortVisible = !sortVisible" >sort</button>       
-   <div class="search-results" infiniteScroll [infiniteScrollUpDistance]="scrollUpDistance" [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle" (scrolled)="onScrollDown()"> 
+   <div class="search-results" infiniteScroll  [infiniteScrollDistance]="2"
+   [infiniteScrollThrottle]="50" [scrollWindow]="false" (scrolled)="onScrollDown()"> 
    <div *ngIf="dataLoaded">
     <div class="container mat-elevation-z8" >
 
-    <table mat-table [dataSource]="tableDatas" matSort id="datatable" >  <!--border="1" cellpadding="3" cellspacing="0" --> 
+    <table mat-table [dataSource]="tableDatas" matSort id="datatable" > 
     <ng-container  matColumnDef="axis" sticky=true>
             <th mat-header-cell *matHeaderCellDef>R</th>
         <td mat-cell *matCellDef="let element; let i = index;" [attr.id]="'staticrow'+i"><span>{{i+1}}</span> 
