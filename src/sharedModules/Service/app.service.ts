@@ -7,14 +7,12 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AppService {
-  baseURL="";
+  baseURL="http://10.16.1.216:8090/vision/generateKeypair";
 
   constructor(public httpClient : HttpClient) { }
   option: any= new HttpHeaders({'Content-type':'application/json'})
-  getData(url: any): Observable<any>{
-    console.log(this.baseURL+url)
-   return this.httpClient.get(this.baseURL+url,this.option).pipe(catchError(this.handleError))
-   //.pipe();
+  getDatas(): Observable<any>{
+   return this.httpClient.get(this.baseURL,this.option).pipe(catchError(this.handleError))
   }
   handleError(error){
    return throwError(error);

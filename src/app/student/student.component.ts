@@ -35,15 +35,15 @@ export class StudentComponent implements OnInit {
   len: any;
   constructor(public serviceService: AppService,private renderer: Renderer2, private el: ElementRef) {
     
-    this.serviceService.getData('ref-data/symbols').subscribe(data => {
-      this.dataLoaded = true;
-      console.log(data.length)
-      this.array = data;
-      this.fiterdata=data;
-      this.array1 = data.slice(0,20);
-    }, error => {
-      console.log(error);
-    });
+    // this.serviceService.getData('ref-data/symbols').subscribe(data => {
+    //   this.dataLoaded = true;
+    //   console.log(data.length)
+    //   this.array = data;
+    //   this.fiterdata=data;
+    //   this.array1 = data.slice(0,20);
+    // }, error => {
+    //   console.log(error);
+    // });
 
   }
   ngOnInit() {

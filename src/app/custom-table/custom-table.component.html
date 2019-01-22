@@ -1,7 +1,7 @@
 
 <div class="container" >
 
-    <div [@dialog] [ngClass]="searchVisible ? 'dialog' : 'dialog_none'" cdkDrag>
+    <div  [ngClass]="searchVisible ? 'dialog' : 'dialog_none'" cdkDrag>
     <div>
     <div class="container">
     <h3 class="align-center  ">Dynamic Search</h3>
@@ -21,7 +21,8 @@
    
     </div>
     </div>
-    <div [@dialog] [ngClass]="sortVisible ? 'dialog' : 'dialog_none'" cdkDrag>
+
+    <div [ngClass]="sortVisible ? 'dialog' : 'dialog_none'" cdkDrag>
     <div>
     <div class="container">
     <h3 class="align-center  ">Dynamic Sort</h3>
@@ -40,29 +41,25 @@
     <button mat-button matTooltip="reset" #resetSort id="resetSort" (click)="refresh(resetSort)"><mat-icon>rotate_right</mat-icon></button>
     </div>
    </div>
-    <div>
-   
-    <mat-form-field>
-    <mat-select multiple placeholder="select column to be fixed" [formControl]="selectedOptions">
-    <mat-option *ngFor="let column of columns" [value]="column">{{ column.name}}</mat-option>
-    </mat-select>
-    </mat-form-field>
 
-    <mat-form-field>
-            <mat-select multiple placeholder="select column for Grouping" [formControl]="groupingOptions">
-            <mat-option *ngFor="let column of columns;let index = index" [value]="index+1">{{ column.name}}</mat-option>
-            </mat-select>
-            </mat-form-field>
-            <button (click)="hai()"></button>
-    </div>
-   
+
+
+   <div class="btn_container">
     <button mat-button (click)="searchVisible = !searchVisible" >search</button>
-    <button mat-button (click)="sortVisible = !sortVisible" >sort</button>       
+    <button mat-button (click)="sortVisible = !sortVisible" >sort</button>  
+    <button mat-button (click)="groupBy()">Grouping</button> 
+    <mat-form-field>
+        <mat-select multiple placeholder="select column to be fixed" [formControl]="selectedOptions">
+        <mat-option *ngFor="let column of columns" [value]="column">{{ column.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button mat-button (click)="export()">Export</button> 
+ </div> 
    <div class="search-results" infiniteScroll  [infiniteScrollDistance]="2"
    [infiniteScrollThrottle]="50" [scrollWindow]="false" (scrolled)="onScrollDown()"> 
    <div *ngIf="dataLoaded">
     <div class="container mat-elevation-z8" >
-
+     
     <table mat-table [dataSource]="tableDatas" matSort id="datatable" > 
     <ng-container  matColumnDef="axis" sticky=true>
             <th mat-header-cell *matHeaderCellDef>R</th>

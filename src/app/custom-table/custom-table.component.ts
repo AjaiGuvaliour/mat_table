@@ -1,23 +1,15 @@
-import { Component, OnInit, ViewChild,ElementRef, Renderer2, AfterViewInit,Input} from '@angular/core';
+import { Component, OnInit,Output, ViewChild,ElementRef, Renderer2, AfterViewInit,Input} from '@angular/core';
 import {FormControl} from '@angular/forms'
-import { trigger, transition, style, animate } from '@angular/animations';
+import * as jspdf from 'jspdf';  
+  
+import html2canvas from 'html2canvas';  
 import  'jquery-ui/ui/widgets/sortable';
 import * as $ from 'jquery';
 @Component({
  selector: 'app-custom-table',
  templateUrl: './custom-table.component.html',
  styleUrls: ['./custom-table.component.scss'],
- animations: [
- trigger('dialog', [
- transition('void => *', [
- style({ transform: 'scale3d(.3, .3, .3)' }),
- animate(100)
- ]),
- transition('* => void', [
- animate(100, style({ transform: 'scale3d(.0, .0, .0)' }))
- ])
- ])
- ]
+
 })
 export class CustomTableComponent implements OnInit ,AfterViewInit{
  getValue: any = [];
@@ -26,12 +18,13 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
  sortIndex=0;
  sortListing_data: any ={};
  searchVisible: any=false;
+ groupingVisible: any = true;
  sortVisible: any =false;
  dataLoaded = false;
  editable =false;
  fiterdata: any=[];
- groupingOptions: any = [];
  @Input () matData=[] ;
+ @Output () output : ElementRef;
  @ViewChild('tableData') tableData:ElementRef;
  @ViewChild('dynamicSearchOption') dynamicSearchOption:ElementRef;
  @ViewChild('dynamicSortOption') dynamicSortOption:ElementRef;
@@ -54,7 +47,6 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
  this.tableDatas = this.matData.slice(0,20);
  this.dataLoaded = true;
  this.selectedOptions = new FormControl();
- this.groupingOptions = new FormControl();
  }
  
  getIndex(index: any){
@@ -67,7 +59,6 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
  
  ngAfterViewInit(){
    this.sortableTable();
-   this.groupBy([1,2,3]);
  }
  sortableTable(){
   $("#sort_fieldId , #search_fieldId").sortable({
@@ -124,9 +115,9 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
    }
  }
 
- groupBy(arrayValue: any){
-   console.log(arrayValue)
-  $(function() {  
+ groupBy(){
+  var to= Object.keys(this.matData[0]);
+ 
     function groupTable($rows, startIndex, total){
       console.log($rows)
     if (total === 0){
@@ -154,12 +145,33 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
     }
     }
     }
-   // groupTable($('#datatable tr:has(td)'),arrayValue,1)
 
-      groupTable($('#datatable tr:has(td)'),1,3);
+    if(this.groupingVisible){
+      groupTable($('#datatable tr:has(td)'),1,to.length);
+      $('#datatable .deleted').hide();
+
+    }
+    this.groupingVisible = !this.groupingVisible;
+
+ }
+ export(){
+  
+    var data = document.getElementById('contentToConvert');  
+    html2canvas(data).then(canvas => {  
+      // Few necessary setting options  
+      var imgWidth = 208;   
+      var pageHeight = 295;    
+      var imgHeight = canvas.height * imgWidth / canvas.width;  
+      var heightLeft = imgHeight;  
+  
+      const contentDataURL = canvas.toDataURL('image/png')  
+      let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF  
+      var position = 0;  
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+      pdf.save('MYPdf.pdf'); // Generated PDF   
+    });  
+  
     
-    $('#datatable .deleted').hide();
-    });
  }
 
  onScrollDown() {
@@ -178,9 +190,7 @@ export class CustomTableComponent implements OnInit ,AfterViewInit{
    this.selectedOptions.value.forEach(element => { data.push(element.name); });}
    return ( data || []).indexOf(id) !== -1;
  }
- hai(){
-    this.groupBy(this.groupingOptions.value);
- }
+
  dynamicSearch(){
  let data = this.tabledata_cpy[0];
  let overall_div = this.renderer.createElement("div");
