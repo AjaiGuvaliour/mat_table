@@ -1,4 +1,5 @@
 
+
 <div class="container" >
 
     <div  [ngClass]="searchVisible ? 'dialog' : 'dialog_none'" cdkDrag>
@@ -47,19 +48,19 @@
    <div class="btn_container">
     <button mat-button (click)="searchVisible = !searchVisible" >search</button>
     <button mat-button (click)="sortVisible = !sortVisible" >sort</button>  
-    <button mat-button (click)="groupBy()">Grouping</button> 
+    <button mat-button (click)="groupBy()">{{grouping}}</button> 
     <mat-form-field>
         <mat-select multiple placeholder="select column to be fixed" [formControl]="selectedOptions">
         <mat-option *ngFor="let column of columns" [value]="column">{{ column.name}}</mat-option>
         </mat-select>
     </mat-form-field>
-    <button mat-button (click)="export()">Export</button> 
+    <button mat-button (click)="exportAsXLSX()">Export</button> 
  </div> 
    <div class="search-results" infiniteScroll  [infiniteScrollDistance]="2"
    [infiniteScrollThrottle]="50" [scrollWindow]="false" (scrolled)="onScrollDown()"> 
    <div *ngIf="dataLoaded">
-    <div class="container mat-elevation-z8" >
-     
+    <div class="container mat-elevation-z8" id="overAllDiv">
+
     <table mat-table [dataSource]="tableDatas" matSort id="datatable" > 
     <ng-container  matColumnDef="axis" sticky=true>
             <th mat-header-cell *matHeaderCellDef>R</th>
@@ -86,6 +87,8 @@
     </div>
    </div>
    </div>
+  
    </div>
+
    
 
