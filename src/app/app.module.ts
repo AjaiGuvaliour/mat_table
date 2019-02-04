@@ -6,6 +6,7 @@ import { SharedModule } from '../sharedModules/commonModules/shared.module';
 import { LoginComponent } from './login/login.component';
 import { StudentComponent } from './student/student.component';
 import { VehicleResolver } from './VehicleResolver';
+import { StartupServiceService } from './startup-service.service';
 
 @NgModule({
   declarations: [
@@ -21,12 +22,12 @@ import { VehicleResolver } from './VehicleResolver';
   providers: [
     VehicleResolver,
 
-    // {
-    //   provide: APP_INITIALIZER,
-    //  useFactory: startupServiceFactory,
-    //  deps: [StartupServiceService],
-    //  multi: true
-    // }
+    {
+      provide: APP_INITIALIZER,
+     useFactory: startupServiceFactory,
+     deps: [StartupServiceService],
+     multi: true
+    }
 
 
     ],
@@ -34,8 +35,8 @@ import { VehicleResolver } from './VehicleResolver';
 })
 export class AppModule { }
 
-// export function startupServiceFactory(
-//   startupService: StartupServiceService
-//   ): Function {
-//   return () => startupService.getToken();
-// }
+export function startupServiceFactory(
+  startupService: StartupServiceService
+  ): Function {
+  return () => startupService.getToken();
+}

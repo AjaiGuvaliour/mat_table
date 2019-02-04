@@ -30,7 +30,9 @@
               "src/styles.scss"
             ],
             "scripts": [
+              "src/assets/rsa.js"
             ]
+            
           },
           "configurations": {
             "production": {

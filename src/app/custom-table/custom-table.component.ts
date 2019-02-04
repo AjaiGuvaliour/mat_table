@@ -9,9 +9,7 @@ import {
   Input
 } from "@angular/core";
 import { FormControl } from "@angular/forms";
-import * as jspdf from "jspdf";
 
-import html2canvas from "html2canvas";
 import "jquery-ui/ui/widgets/sortable";
 import * as $ from "jquery";
 import { MatTableDataSource } from '@angular/material';
@@ -37,7 +35,6 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
   fiterdata: any = [];
   @Input() matData = [];
   @Output() output: ElementRef;
-  @ViewChild("tableData") tableData: ElementRef;
   @ViewChild("dynamicSearchOption") dynamicSearchOption: ElementRef;
   @ViewChild("dynamicSortOption") dynamicSortOption: ElementRef;
   dataSource = new MatTableDataSource<any>();
@@ -168,7 +165,6 @@ onScrollDown() {
 
     var to = Object.keys(this.matData[0]);
     function groupTable($rows, startIndex, total) {
-      console.log($rows);
       if (total === 0) {
         return;
       }
@@ -217,7 +213,7 @@ onScrollDown() {
     let overall_div = this.renderer.createElement("div");
     let row = this.renderer.createElement("div");
     row.id = "row" + this.searchIndex;
-    this.renderer.setAttribute(row, "class", "row");
+    this.renderer.setAttribute(row, "class", "row1");
     let col1 = this.renderer.createElement("div");
     this.renderer.setAttribute(col1, "class", "column");
     let matform = this.renderer.createElement("mat-form-field");
@@ -585,6 +581,7 @@ onScrollDown() {
 
   refresh(event: any) {
     var refresh = event._elementRef.nativeElement.id;
+    console.log(refresh)
     if (refresh == "resetSearch") {
       this.filterData("");
       for (var i = 0; i < this.searchIndex; i++) {
