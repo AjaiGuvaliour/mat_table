@@ -64,12 +64,12 @@ export class AppComponent implements OnInit {
   }
   getData(){
     this.martData=[
-      {USER: "yurifgggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg", SCORE: 6000, TIME: 34, AGE: 19, COUNTRY: "RU",SURNAME:"vvv" ,SURNAME1:"vvv",SURNAME2:"vvv" ,SURNAME3:"vvv",SURNAME4:"vvv" ,SURNAME5:"vvv"},
+      {USER: "yuri", SCORE: 6000, TIME: 34, AGE: 19, COUNTRY: "RU",SURNAME:"vvv" ,SURNAME1:"vvv",SURNAME2:"vvv" ,SURNAME3:"vvv",SURNAME4:"vvv" ,SURNAME5:"vvv"},
       {USER: "yuri", SCORE: 6000, TIME: 34, AGE: 19, COUNTRY: "RU",SURNAME:"vvv",SURNAME1:"vvv",SURNAME2:"vvv" ,SURNAME3:"vvv",SURNAME4:"vvv" ,SURNAME5:"vvv"},
-       {USER: "yuri", SCORE: 6000, TIME: 34, AGE: 19, COUNTRY: "RU",SURNAME:"vvv",SURNAME1:"vvv",SURNAME2:"vvv" ,SURNAME3:"vvv",SURNAME4:"vvv" ,SURNAME5:"vvv"},
+       {USER: "yuri", SCORE: 6000, TIME: 34, AGE: 19, COUNTRY: "RU",SURNAME:"kku",SURNAME1:"vvv",SURNAME2:"vvv" ,SURNAME3:"vvv",SURNAME4:"vvv" ,SURNAME5:"vvv"},
        {USER: "yuri", SCORE: 1000, TIME: 34, AGE: 19, COUNTRY: "RU",SURNAME:"kk",SURNAME1:"vvv",SURNAME2:"vvv" ,SURNAME3:"vvv",SURNAME4:"vvv" ,SURNAME5:"vvv"},
        {USER: "yuri", SCORE: 1000, TIME: 3, AGE: 19, COUNTRY: "RU",SURNAME:"kk",SURNAME1:"vvv",SURNAME2:"vvv" ,SURNAME3:"vvv",SURNAME4:"vvv" ,SURNAME5:"vvv"},
-      {USER: "yuri", SCORE: 1000, TIME: 3, AGE: 19, COUNTRY: "RU",SURNAME:"kk",SURNAME1:"vvv",SURNAME2:"vvv" ,SURNAME3:"vvv",SURNAME4:"vvv" ,SURNAME5:"vvv"},
+      {USER: "yuri", SCORE: 1000, TIME: 3, AGE: 19, COUNTRY: "RU",SURNAME:"kku",SURNAME1:"vvv",SURNAME2:"vvv" ,SURNAME3:"vvv",SURNAME4:"vvv" ,SURNAME5:"vvv"},
       {USER: "yuri", SCORE: 1000, TIME: 3, AGE: 18, COUNTRY: "RU",SURNAME:"kk",SURNAME1:"vvv",SURNAME2:"vvv" ,SURNAME3:"vvv",SURNAME4:"vvv" ,SURNAME5:"vvv"},
       {USER: "yuri", SCORE: 1000, TIME: 3, AGE: 18, COUNTRY: "Ar",SURNAME:"kk",SURNAME1:"vvv",SURNAME2:"vvv" ,SURNAME3:"vvv",SURNAME4:"vvv" ,SURNAME5:"vvv"},
       {USER: "tim", SCORE: 1000, TIME: 30, AGE: 17, COUNTRY: "UK",SURNAME:"kk",SURNAME1:"vvv",SURNAME2:"vvv" ,SURNAME3:"vvv",SURNAME4:"vvv" ,SURNAME5:"vvv"},

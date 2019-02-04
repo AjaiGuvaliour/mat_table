@@ -11,7 +11,7 @@ import {
 import { FormControl } from "@angular/forms";
 
 import "jquery-ui/ui/widgets/sortable";
-import * as $ from "jquery";
+//  import * as $ from "jquery";
 import { MatTableDataSource } from '@angular/material';
 import { ExcelService } from './excel/excel.service';
 @Component({
@@ -54,7 +54,6 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
         label: "Search by " + object
       });
     }
-
     this.displayedColumns = ["axis"]
       .concat(this.columns.map(element => element.name))
       .concat(["formula"]);
@@ -73,9 +72,7 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
 onScrollDown() {
   let len = this.tableDatas.length;
   for (let i = len; i < len + 5; i++) {
-    if (this.tabledata_cpy.length > this.tableDatas.length) {
-      this.tableDatas.push(this.tabledata_cpy[i]);
-    }
+    this.tabledata_cpy.length > this.tableDatas.length ? this.tableDatas.push(this.tabledata_cpy[i]) : '' ;
   }
   this.tableDatas = this.tableDatas.slice(0);
 }
@@ -95,11 +92,11 @@ onScrollDown() {
 
 //Row Swapping
   sortableTable() {
-    $("#sort_fieldId , #search_fieldId").sortable({
-      connectWith: "div",
-      delay: 150,
-      revert: 0
-    });
+    // $("#sort_fieldId , #search_fieldId").sortable({
+    //   connectWith: "div",
+    //   delay: 150,
+    //   revert: 0
+    // });
   }
 
 //for MathCalculation in table
@@ -107,7 +104,7 @@ onScrollDown() {
     var mod = index % 26,
       pow = (index / 26) | 0,
       out = mod ? String.fromCharCode(64 + mod) : (--pow, "Z");
-    return pow ? this.getIndex(pow) + out : out;
+      return pow ? this.getIndex(pow) + out : out;
   }
 
   formulaGenerator(event, index) {
@@ -124,10 +121,8 @@ onScrollDown() {
 
       for (var j = 0; j < formulaArray.length; j++) {
         if (document.getElementsByClassName(formulaArray[j].toUpperCase())[0]) {
-          if (
-            document.getElementsByClassName(formulaArray[j].toUpperCase())[0]
-              .innerHTML
-          ) {
+          if (document.getElementsByClassName(formulaArray[j].toUpperCase())[0].innerHTML)
+           {
             valueArray[j] = document.getElementsByClassName(
               formulaArray[j].toUpperCase()
             )[0].innerHTML;
@@ -145,63 +140,74 @@ onScrollDown() {
       );
       formulaTextArea["value"] = formulatedValue;
     }
-    if (formula.length == 0) {
-      document.getElementById(`${"formulaTextArea" + index}`)["value"] = "";
-    }
+    (formula.length == 0) ? document.getElementById(`${"formulaTextArea" + index}`)["value"] = "" : '';
   }
 
   //ngClass Styles getter setter
   typeChecking(textValue: any) {
-    if (typeof textValue == "number") {
-      return true;
-    } else {
-      return false;
-    }
+   return  typeof textValue == "number" ?  true : false;
   }
-
   //Group By Functionality
   groupBy() {
     this.groupingVisible = ! this.groupingVisible;
 
-    var to = Object.keys(this.matData[0]);
-    function groupTable($rows, startIndex, total) {
+    var obj = Object.keys(this.matData[0]);
+    function groupTable(rows, startIndex, total) {
+      
       if (total === 0) {
         return;
       }
-      var i,
+      var i,tds=[],
         currentIndex = startIndex,
         count = 1,
         lst = [];
-      var tds = $rows.find("td:eq(" + currentIndex + ")");
-      var ctrl = $(tds[0]);
-      lst.push($rows[0]);
+         for(var ind=0; ind < rows.length;ind++){
+          for(var index=0;index<rows[ind].getElementsByTagName("td").length;index++){
+             index == currentIndex ? tds.push(rows[ind].getElementsByTagName("td")[index]) : '';     
+         }
+        }
+      var ctrl = tds[0];
+      lst.push(rows[0]);
       for (i = 1; i <= tds.length; i++) {
-        if (ctrl.text() == $(tds[i]).text()) {
+        var tdsInnerText;
+        if(tds[i]){tdsInnerText=tds[i].innerText}else{tdsInnerText=''}
+        if (ctrl.innerText ==  tdsInnerText) {
           count++;
-          $(tds[i]).addClass("deleted");
-          lst.push($rows[i]);
+          tds[i].classList.add("deleted");
+          lst.push(rows[i]);
         } else {
           if (count > 1) {
-            ctrl.attr("rowspan", count);
-            groupTable($(lst), startIndex + 1, total - 1);
+            ctrl.setAttribute("rowspan", count);
+            groupTable(lst, startIndex + 1, total - 1);
           }
           count = 1;
           lst = [];
-          ctrl = $(tds[i]);
-          lst.push($rows[i]);
+          ctrl = tds[i];
+          lst.push(rows[i]);
         }
       }
     }
-
+    var tableId = document.getElementById("datatable");
     if (!this.groupingVisible) {
+      var tdGroup=[];
       this.grouping="UnGroup";
-      groupTable($("#datatable tr:has(td)"), 1, to.length);
-      $("#datatable .deleted").hide();
+      for(var i = 0 ; i< tableId.getElementsByTagName("tr").length;i++){
+         tableId.getElementsByTagName("tr")[i].children[0].tagName == "TD" ?  tdGroup.push(tableId.getElementsByTagName("tr")[i]) : '';
+      }
+       groupTable(tdGroup,1,obj.length);
+       for(var it=0; it < tableId.getElementsByClassName("deleted").length;it++){
+          tableId.getElementsByClassName("deleted")[it].classList.add("none");
+       }
     }
     else{
         this.grouping="Grouping";
-        $("#datatable .deleted").show();
-        $("#datatable tbody tr td").removeAttr("rowspan");
+        for(var it=0; it< tableId.getElementsByClassName("deleted").length; it++){
+            tableId.getElementsByClassName("deleted")[it].classList.remove("none");
+          }
+        for(var removeAtt=0;removeAtt < tableId.getElementsByTagName("td").length; removeAtt++){
+          tableId.getElementsByTagName("td")[removeAtt].hasAttribute("rowspan") ?   tableId.getElementsByTagName("td")[removeAtt].removeAttribute("rowspan") : '';
+        }
+    
     }
 
   }
@@ -226,11 +232,7 @@ onScrollDown() {
     keys.unshift("");
     for (var i = 0; i < keys.length; i++) {
       let matoption = this.renderer.createElement("option");
-      if (keys[i] == "") {
-        option = this.renderer.createText("please select__");
-      } else {
-        option = this.renderer.createText(keys[i]);
-      }
+      option =  (keys[i] == "") ? this.renderer.createText("please select__") : this.renderer.createText(keys[i]) ;
       option.value = data[keys[i]];
       this.renderer.appendChild(matoption, option);
       this.renderer.appendChild(matselect1, matoption);
@@ -302,9 +304,7 @@ onScrollDown() {
         for (var i = 0; i < string_type.length; i++) {
           option = document.createElement("option");
           option.value = string_type[i];
-          string_type[i] == " "
-            ? (option.text = "please select___")
-            : (option.text = string_type[i]);
+          string_type[i] == " "  ? (option.text = "please select___")  : (option.text = string_type[i]);
           select_element.appendChild(option);
         }
         break;
@@ -314,9 +314,7 @@ onScrollDown() {
         for (var i = 0; i < boolean_type.length; i++) {
           option = document.createElement("option");
           option.value = boolean_type[i];
-          boolean_type[i] == ""
-            ? (option.text = "please select___")
-            : (option.text = boolean_type[i]);
+          boolean_type[i] == ""  ? (option.text = "please select___")   : (option.text = boolean_type[i]);
           select_element.appendChild(option);
         }
         break;
@@ -326,9 +324,7 @@ onScrollDown() {
         for (var i = 0; i < number_type.length; i++) {
           option = document.createElement("option");
           option.value = number_type[i];
-          number_type[i] == " "
-            ? (option.text = "please select___")
-            : (option.text = number_type[i]);
+          number_type[i] == " "  ? (option.text = "please select___") : (option.text = number_type[i]);
           select_element.appendChild(option);
         }
         break;
@@ -338,9 +334,7 @@ onScrollDown() {
         for (var i = 0; i < date_type.length; i++) {
           option = document.createElement("option");
           option.value = date_type[i];
-          date_type[i] == " "
-            ? (option.text = "please select___")
-            : (option.text = date_type[i]);
+          date_type[i] == " " ? (option.text = "please select___")  : (option.text = date_type[i]);
           select_element.appendChild(option);
         }
         break;
@@ -356,16 +350,10 @@ onScrollDown() {
       var filldata = items.filter(item => {
         for (let prop in fields) {
           for (var i = 0; i < searching_list.length; i++) {
-            if (
-              searching_list[i]["types"] == "Contains" ||
-              searching_list[i]["types"] == " "
-            ) {
-              if (
-                searching_list[i][prop] &&
-                item[prop]
-                  .toLowerCase()
-                  .indexOf(searching_list[i][prop].toLowerCase()) === -1
-              ) {
+            if ( searching_list[i]["types"] == "Contains" ||  searching_list[i]["types"] == " ")
+             {
+              if ( searching_list[i][prop] &&  item[prop].toLowerCase().indexOf(searching_list[i][prop].toLowerCase()) === -1)
+               {
                 return false;
               }
             } else if (searching_list[i]["types"] == "Ends With") {
@@ -467,11 +455,7 @@ onScrollDown() {
     keys.unshift("");
     for (var i = 0; i < keys.length; i++) {
       let matoption = this.renderer.createElement("option");
-      if (keys[i] == "") {
-        option = this.renderer.createText("please select__");
-      } else {
-        option = this.renderer.createText(keys[i]);
-      }
+      option =  (keys[i] == "") ? this.renderer.createText("please select__") : this.renderer.createText(keys[i]) ;
       option.value = data[keys[i]];
       this.renderer.appendChild(matoption, option);
       this.renderer.appendChild(matselect1, matoption);
@@ -488,11 +472,7 @@ onScrollDown() {
     var keyValue = [" ", "desc", "asc"];
     for (var i = 0; i < keyValue.length; i++) {
       let matoption = this.renderer.createElement("option");
-      if (keyValue[i] == " ") {
-        option = this.renderer.createText("please select__");
-      } else {
-        option = this.renderer.createText(keyValue[i]);
-      }
+      option =  (keyValue[i] == "") ? this.renderer.createText("please select__") : this.renderer.createText(keyValue[i]) ;
       option.value = data[keyValue[i]];
       this.renderer.appendChild(matoption, option);
       this.renderer.appendChild(matselect2, matoption);
@@ -533,26 +513,14 @@ onScrollDown() {
           type,
           selection,
           searched;
-        if (document.getElementById(`${"type" + i}`)) {
-          type = document.getElementById(`${"type" + i}`)["value"];
-        } else {
-          type = "";
-        }
-        if (document.getElementById(`${"selection" + i}`)) {
-          selection = document.getElementById(`${"selection" + i}`)["value"];
-        } else {
-          selection = "";
-        }
-        if (document.getElementById(`${"searched" + i}`)) {
-          searched = document.getElementById(`${"searched" + i}`)["value"];
-        } else {
-          searched = "";
-        }
-        if (selection != "") {
-          element[selection] = searched;
-          element["types"] = type;
-          searching_list.push(element);
-        }
+          type =      document.getElementById(`${"type" + i}`) ? document.getElementById(`${"type" + i}`)["value"] : '' ;
+          selection = document.getElementById(`${"selection" + i}`) ? document.getElementById(`${"selection" + i}`)["value"] : '' ;
+          searched = document.getElementById(`${"searched" + i}`)["value"] ? document.getElementById(`${"searched" + i}`)["value"] : '' ;
+          if (selection != "") {
+             element[selection] = searched;
+             element["types"] = type;
+             searching_list.push(element);
+           }
       }
       this.filterData(searching_list);
     } else if (find == "findSort") {
